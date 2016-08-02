@@ -1,11 +1,7 @@
-var React = require('react-native');
-var {
-  Image,
-  Text,
-  View,
-} = React;
-var SimpleMarkdown = require('simple-markdown');
-var _ = require('lodash');
+import React from 'react'
+import { image, Text, View } from 'react-native'
+import SimpleMarkdown from 'simple-markdown'
+import _ from 'lodash'
 
 module.exports = function(styles) {
   return {
@@ -144,7 +140,7 @@ module.exports = function(styles) {
     },
     paragraph: {
       react: function(node, output, state) {
-        return React.createElement(View, {
+        return React.createElement(Text, {
           key: state.key,
           style: styles.paragraph
         }, output(node.content, state));

@@ -1,11 +1,9 @@
-var React = require('react-native');
-var {
-  View
-} = React;
-var _ = require('lodash');
-var SimpleMarkdown = require('simple-markdown');
+import React from 'react'
+import { View } from 'react-native'
+import SimpleMarkdown from 'simple-markdown'
+import _ from 'lodash'
 
-var styles = {
+const styles = {
   view: {
   },
   codeBlock: {
@@ -113,37 +111,37 @@ var styles = {
     borderColor: '#222222',
     borderBottomWidth: 1
   }
-};
+}
 
 
-var Markdown = React.createClass({
+const Markdown = React.createClass({
 
   getDefaultProps: function() {
     return {
       style: styles
-    };
+    }
   },
 
   componentWillMount: function() {
-    var mergedStyles = _.merge({}, styles, this.props.style);
-    var rules = require('./rules')(mergedStyles);
-    rules = _.merge({}, SimpleMarkdown.defaultRules, rules);
+    const mergedStyles = _.merge({}, styles, this.props.style)
+    let rules = require('./rules')(mergedStyles)
+    rules = _.merge({}, SimpleMarkdown.defaultRules, rules)
 
-    var parser = SimpleMarkdown.parserFor(rules);
+    const parser = SimpleMarkdown.parserFor(rules)
     this.parse = function(source) {
-      var blockSource = source + '\n\n';
-      return parser(blockSource, {inline: false});
-    };
-    this.renderer = SimpleMarkdown.reactFor(SimpleMarkdown.ruleOutput(rules, 'react'));
+      const blockSource = source + '\n\n'
+      return parser(blockSource, {inline: false})
+    }
+    this.renderer = SimpleMarkdown.reactFor(SimpleMarkdown.ruleOutput(rules, 'react'))
   },
 
   render: function() {
 
-    var child = _.isArray(this.props.children)
-      ? this.props.children.join('') : this.props.children;
-    var tree = this.parse(child);
-    return <View style={[styles.view, this.props.style.view]}>{this.renderer(tree)}</View>;
+    const child = _.isArray(this.props.children)
+      ? this.props.children.join('') : this.props.children
+    const tree = this.parse(child)
+    return <View style={[styles.view, this.props.style.view]}>{this.renderer(tree)}</View>
   }
-});
+})
 
-module.exports = Markdown;
+export default Markdown
